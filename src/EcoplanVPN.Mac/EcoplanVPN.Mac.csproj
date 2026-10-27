@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>EcoplanVPN.Mac</RootNamespace>
+    <AssemblyName>EcoplanVPN</AssemblyName>
+    <Version>1.0.9</Version>
+    <AssemblyVersion>1.0.9.0</AssemblyVersion>
+    <FileVersion>1.0.9.0</FileVersion>
+    <InformationalVersion>1.0.9</InformationalVersion>
+    <Product>EcoplanVPN</Product>
+    <Description>EcoplanVPN для macOS</Description>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EcoplanVPN.Core\EcoplanVPN.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources/ecoplan-priv.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <TargetPath>ecoplan-priv.sh</TargetPath>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="EcoplanVPN.Mac.MainWindow"
+        Title="EcoplanVPN"
+        Width="420" Height="740"
+        MinWidth="380" MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        Background="#140910"
+        CanResize="True">
+  <Grid RowDefinitions="Auto,*,Auto" Margin="18">
+    <StackPanel Spacing="6">
+      <TextBlock Text="EcoplanVPN" FontSize="26" FontWeight="Bold" Foreground="#FFF7FA"/>
+      <TextBlock x:Name="Subtitle" Text="РФ напрямую, остальное через выбранный сервер"
+                 FontSize="13" Foreground="#D7A8B8" TextWrapping="Wrap"/>
+      <TextBlock x:Name="VersionText" FontSize="11" Foreground="#8C6574"/>
+    </StackPanel>
+
+    <ScrollViewer Grid.Row="1" Margin="0,14,0,12">
+      <StackPanel Spacing="10">
+        <TextBlock Text="Сервер" FontSize="12" Foreground="#D7A8B8"/>
+        <StackPanel x:Name="Cards" Spacing="8"/>
+        <TextBlock x:Name="CatalogHint" Text="Загружаю список серверов…"
+                   FontSize="12" Foreground="#D7A8B8" TextWrapping="Wrap"/>
+
+        <TextBlock Text="Режим" FontSize="12" Foreground="#D7A8B8" Margin="0,8,0,0"/>
+        <StackPanel Orientation="Horizontal" Spacing="16">
+          <RadioButton x:Name="ModeTun" GroupName="mode" Content="Весь Mac" IsChecked="True"
+                       Foreground="#FFF7FA"/>
+          <RadioButton x:Name="ModeProxy" GroupName="mode" Content="Только прокси"
+                       Foreground="#FFF7FA"/>
+        </StackPanel>
+        <TextBlock x:Name="ModeHint" FontSize="12" Foreground="#8C6574" TextWrapping="Wrap"/>
+
+        <TextBlock x:Name="Status" FontSize="14" Foreground="#FFF7FA" TextWrapping="Wrap" Margin="0,6,0,0"/>
+
+        <Button x:Name="ConnectButton" Content="Подключить" HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center" Height="46" CornerRadius="14"
+                Background="#FF4D88" Foreground="#1A0A10" FontWeight="SemiBold" FontSize="16"
+                Click="OnConnect"/>
+        <Button x:Name="PhoneButton" Content="Ссылка для телефона (Vision)" HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center" Height="36" CornerRadius="12"
+                Background="#2C1622" Foreground="#FFF7FA" Click="OnPhone"/>
+        <Button x:Name="UpdateButton" Content="Скачать обновление" IsVisible="False"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Height="36"
+                CornerRadius="12" Background="#3A2430" Foreground="#FFF7FA" Click="OnUpdate"/>
+
+        <TextBlock Text="Журнал" FontSize="12" Foreground="#D7A8B8" Margin="0,8,0,0"/>
+        <TextBox x:Name="LogBox" IsReadOnly="True" Height="140" AcceptsReturn="True"
+                 TextWrapping="Wrap" Background="#1E1016" Foreground="#E7C9D4"
+                 FontFamily="Menlo,Consolas,monospace" FontSize="11"/>
+      </StackPanel>
+    </ScrollViewer>
+
+    <TextBlock Grid.Row="2" FontSize="11" Foreground="#8C6574" TextWrapping="Wrap"
+               Text="Сборка без подписи Apple: при первом запуске — правый клик → «Открыть». Режим «Весь Mac» спрашивает пароль и поднимает tun через sing-box, Network Extension не нужен."/>
+  </Grid>
+</Window>
