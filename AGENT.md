@@ -63,6 +63,12 @@ YouTube в этой сборке идёт **через VPN**. Его нет в `
 
 Напрямую остаются только `.ru` / `.рф` / `.su`, VK, Яндекс и российские geosite-категории.
 
+## macOS
+
+Сборка клиента EcoplanVPN для Mac — `bash scripts/build-mac.sh client.env` (нужен .NET 8 SDK). Тот же `client.env`, что и для Windows: в образ попадает только публичный `OTA_PUB`, uuid и Reality-ключи клиент читает из подписанного `servers.json`. Без `client.env` скрипт всё равно собирает `dist/EcoplanVPN-<версия>.dmg`, но подпись списка не сойдётся. Заглушка для проверки пайплайна: `scripts/client.env.example` (к боевым серверам не подходит). На Linux образ собирает mozilla/libdmg-hfsplus; пакеты: `cmake g++ zlib1g-dev libbz2-dev liblzma-dev libssl-dev hfsprogs`. На Mac достаточно `hdiutil`.
+
+Не выкладывать DMG на VPS из этого шага. Обновление Mac — отдельный `latest-mac.json` с той же подписью, что `latest.json`, и файлом `EcoplanVPN-<версия>.dmg`. На macOS без Apple Developer ID программа не нотаризуется: пользователь подтверждает запуск вручную, tun поднимается паролем администратора через sing-box, Network Extension не используется.
+
 ## Чего не делать
 
 - Не вписывать в `Cfg.cs` IP или ключи от другого сервера.

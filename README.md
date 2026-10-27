@@ -41,3 +41,21 @@ powershell -ExecutionPolicy Bypass -File scripts\build.ps1
 ```
 
 На Linux то же самое: `bash scripts/build.sh client.env` (нужен .NET 8 SDK). Сборка штампует ключи во временную копию исходников, дерево репозитория остаётся с заглушками.
+
+## macOS
+
+Клиент в `src/EcoplanVPN.Mac` (Avalonia) и общая логика в `src/EcoplanVPN.Core`. Windows-проект не менялся. Подключение то же: VLESS Reality, xHTTP :443 и Vision :8443, карточки «Нидерланды» и «Через Россию → …» из подписанного `servers.json`. YouTube идёт через VPN, зоны `.ru` / VK / Яндекс — напрямую.
+
+```bash
+# .NET 8 SDK. client.env — тот же файл, что для Windows (нужен OTA_PUB).
+# Без него образ соберётся, но список серверов не пройдёт проверку подписи.
+bash scripts/build-mac.sh client.env
+```
+
+Артефакт: `dist/EcoplanVPN-1.0.9.dmg` (Apple Silicon и Intel в одном .app). Проверка без боевых ключей: `bash scripts/build-mac.sh scripts/client.env.example` — заглушка, к рабочим серверам не подключится.
+
+На Mac `hdiutil` собирает DMG. На Linux скрипт кросс-компилирует `osx-arm64` и `osx-x64` и упаковывает DMG через mozilla/libdmg-hfsplus. Для этого нужны `cmake`, `g++`, заголовки zlib/bzip2/lzma/openssl и `mkfs.hfsplus` (`hfsprogs`). Запуск и tun проверяются только на macOS.
+
+Режим «Весь Mac» поднимает sing-box tun от администратора (пароль в диалоге macOS). Network Extension и подпись Apple не нужны. «Только прокси» включает системный SOCKS. Неподписанное приложение Gatekeeper открывает через правый клик → «Открыть» или `xattr -dr com.apple.quarantine`. Нотаризация (`notarytool`) возможна только с Apple Developer ID — в этой сборке её нет.
+
+Обновление Mac — отдельный подписанный `latest-mac.json` (тот же конверт, что `latest.json`: строка `version\nurl\nsha256\nsize\n`). Файл кладётся рядом с зеркалами и на `http://147.45.48.35/dl/latest-mac.json`. Имя образа: `EcoplanVPN-<версия>.dmg`. Список IP по-прежнему берётся из `servers.json`. Ядра xray/sing-box для Darwin лежат внутри .app (версии в `scripts/mac-cores.lock`), windows-`bins.json` их не содержит.

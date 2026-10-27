@@ -1,0 +1,29 @@
+name: macOS
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - src/EcoplanVPN.Core/**
+      - src/EcoplanVPN.Core.Tests/**
+      - src/EcoplanVPN.Mac/**
+      - scripts/build-mac.sh
+      - scripts/mac-cores.lock
+      - scripts/stamp.py
+      - scripts/restore-assets.py
+
+jobs:
+  dmg:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Собрать DMG без боевых ключей
+        run: bash scripts/build-mac.sh scripts/client.env.example
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EcoplanVPN-dmg
+          path: dist/EcoplanVPN-*.dmg
+          if-no-files-found: error

@@ -1,7 +1,11 @@
-src/KovchegVPN/bin/
-src/KovchegVPN/obj/
+src/**/bin/
+src/**/obj/
+src/KovchegVPN/Resources/*.png
+src/KovchegVPN/Resources/*.ico
+src/KovchegVPN/Resources/*.icns
 client.env
 dist/
 *.user
 *.exe
 *.pdb
+*.dmg
